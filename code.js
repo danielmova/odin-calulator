@@ -6,7 +6,7 @@ let secondNumber = 0;
 
 const display = document.querySelector(".display");
 
-const buttons = document.querySelector("button");
+const buttons = document.querySelectorAll("button");
 
 function addOperation(a, b){
     return parseInt(a) + parseInt(b);
@@ -43,7 +43,14 @@ function operate(){
     } 
 }
 
-function populateDisplay(){
+buttons.forEach(button => button.addEventListener("click", evaluateInput));
+
+function evaluateInput(event) {
+    const button = event.target;
     
-    display.innerText = buttons.innerText;
+    if(button.classList.contains('number')) {
+        display.textContent = "Is number";
+    } else {
+        display.textContent = "NaN";
+    }
 }
