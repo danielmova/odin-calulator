@@ -1,8 +1,10 @@
-let firstNumber = 0;
+let firstNumber = "";
 
 let operator = "";
 
-let secondNumber = 0;
+let secondNumber = "";
+
+let tempNumber = "";
 
 const display = document.querySelector(".display");
 
@@ -43,14 +45,25 @@ function operate(){
     } 
 }
 
+function updateDisplay(){
+    display.innerText = tempNumber;
+}
+
 buttons.forEach(button => button.addEventListener("click", evaluateInput));
 
 function evaluateInput(event) {
     const button = event.target;
     
-    if(button.classList.contains('number')) {
-        display.textContent = "Is number";
+    if(button.classList.contains("number")) {
+        tempNumber += button.innerText;
+        updateDisplay();
     } else {
-        display.textContent = "NaN";
+        if(button.classList.contains("operator") && firstNumber === "" && operator === ""){
+            firstNumber = tempNumber;
+            operator = button.innerText;
+            console.log(`${firstNumber}...${operator}`);
+            tempNumber = button.innerText;
+            updateDisplay();
+        }
     }
 }
